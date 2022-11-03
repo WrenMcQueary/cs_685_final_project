@@ -1,0 +1,17 @@
+(cl:defpackage mira_communication-msg
+  (:use )
+  (:export
+   "<MIRAANGLES>"
+   "MIRAANGLES"
+   "<MIRACOORDS>"
+   "MIRACOORDS"
+   "<MIRAGRIPPERSTATUS>"
+   "MIRAGRIPPERSTATUS"
+   "<MIRAPUMPSTATUS>"
+   "MIRAPUMPSTATUS"
+   "<MIRASETANGLES>"
+   "MIRASETANGLES"
+   "<MIRASETCOORDS>"
+   "MIRASETCOORDS"
+  ))
+

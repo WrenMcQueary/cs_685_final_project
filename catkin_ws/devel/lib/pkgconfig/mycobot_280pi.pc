@@ -1,0 +1,8 @@
+prefix=/home/wren/Documents/CS685/final_project/catkin_ws/devel
+
+Name: mycobot_280pi
+Description: Description of mycobot_280pi
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: std_msgs actionlib

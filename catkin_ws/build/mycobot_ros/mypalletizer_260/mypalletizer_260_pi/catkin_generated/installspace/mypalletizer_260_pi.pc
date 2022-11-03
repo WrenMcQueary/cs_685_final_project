@@ -1,0 +1,8 @@
+prefix=/home/wren/Documents/CS685/final_project/catkin_ws/install
+
+Name: mypalletizer_260_pi
+Description: Description of mypalletizer_260_pi
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: std_msgs actionlib

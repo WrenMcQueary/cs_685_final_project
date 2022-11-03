@@ -1,0 +1,8 @@
+prefix=/home/wren/Documents/CS685/final_project/catkin_ws/install
+
+Name: mycobot_600
+Description: Description of mycobot_600
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
