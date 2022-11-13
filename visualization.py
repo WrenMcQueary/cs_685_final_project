@@ -27,9 +27,9 @@ def draw_snapshot(l_0: float, l_1: float, theta_0: float, theta_1: float, theta_
                          [0],
                          [0],
                          [1]])
-    transform_base_to_joint_1 = get_rotation_z_transform(theta_0) @ get_rotation_y_transform(theta_1) @ get_translation_x_transform(l_0)
+    transform_base_to_joint_1 = get_forward_transform_base_to_joint_1(l_0, theta_0, theta_1)
     pos_joint_1 = transform_base_to_joint_1 @ pos_base
-    transform_base_to_joint_2 = transform_base_to_joint_1 @ get_rotation_y_transform(-theta_2) @ get_translation_x_transform(l_1)
+    transform_base_to_joint_2 = get_forward_transform_base_to_joint_2(l_0, l_1, theta_0, theta_1, theta_2)
     pos_joint_2 = transform_base_to_joint_2 @ pos_base
     ax.plot([pos_base[0][0], pos_joint_1[0][0]], [pos_base[1][0], pos_joint_1[1][0]], [pos_base[2][0], pos_joint_1[2][0]])
     ax.plot([pos_joint_1[0][0], pos_joint_2[0][0]], [pos_joint_1[1][0], pos_joint_2[1][0]], [pos_joint_1[2][0], pos_joint_2[2][0]])
