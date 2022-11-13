@@ -1,3 +1,6 @@
+"""Code for producing affine transformation matrices."""
+
+
 import numpy as np
 from math import sin, cos
 
