@@ -7,11 +7,12 @@ from math import pi, sin, cos
 from transforms import *
 
 
-def ccd(goal_x: float, goal_y: float, goal_z: float, l_0: float, l_1: float, angles: list, iterations=1000) -> [float, float, float]:
+def ccd(goal: np.array, l_0: float, l_1: float, angles: list, iterations=1000) -> [float, float, float]:
     """Run Cyclic Coordinate Descent to approximate a new best pose.  Return the set of angles defining that pose.
-    goal_x, goal_y, and goal_z represent the final goal position for the end effector.
+    goal is a 3D column vector plus an affine coordinate of 1.
     :param angles:  the initial pose of the arm.  A list composed of [theta_0, theta_1, theta_2]
     """
+    goal_x, goal_y, goal_z = goal[0][0], goal[1][0], goal[2][0]
     for ii in range(iterations):
         for aa in range(len(angles)):
             # Find the value for this angle that minimizes the distance between the end effector and the goal position
