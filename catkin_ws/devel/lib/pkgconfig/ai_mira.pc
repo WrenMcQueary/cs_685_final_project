@@ -1,8 +1,0 @@
-prefix=/home/wren/Documents/CS685/final_project/catkin_ws/devel
-
-Name: ai_mira
-Description: Description of ai_mira
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

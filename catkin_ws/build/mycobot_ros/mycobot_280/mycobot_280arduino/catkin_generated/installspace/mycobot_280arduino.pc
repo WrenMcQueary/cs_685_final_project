@@ -1,8 +1,0 @@
-prefix=/home/wren/Documents/CS685/final_project/catkin_ws/install
-
-Name: mycobot_280arduino
-Description: Description of mycobot_280arduino
-Version: 0.3.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: std_msgs actionlib
