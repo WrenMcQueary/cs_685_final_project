@@ -30,4 +30,5 @@ if __name__ == "__main__":
         # Get best angles for this goal
         theta_0, theta_1, theta_2 = ccd(goal_position, l_0, l_1, [theta_0, theta_1, theta_2])
         # Show result
+        print(f"SHOWING RESULT FOR GOAL\n{goal_position[:-1]}")
         draw_snapshot(l_0, l_1, theta_0, theta_1, theta_2)
