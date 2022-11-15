@@ -10,13 +10,12 @@ from math import pi, sin, cos, tan
 from transforms import *
 
 
-def update_lines(frameno: int, lines: list, l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list) -> list:
-    """Set the lines such that they match the current frame, then return them.
-    :param frameno:         which frame of the animation to set the lines to
+def update_lines(frameno: int, ax, lines: list, l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, goal_position_indices: list) -> None:
+    """Set the lines such that they match the current frame.
+    :param frameno:         which frame of the animation to set the lines to.
     :param lines:           the line objects to set.  The first two are the arm segments, and the remaining four are the canvas.
+    :param goal_position_indices:  list of frame indices at which the end effector is at a goal.
     """
-    # TODO: Run set_data as appropriate
-    # TODO: Run set_3D_properties as appropriate
     # Calculate joint positions
     theta_0 = theta_0_sequence[frameno]
     theta_1 = theta_1_sequence[frameno]
@@ -29,6 +28,7 @@ def update_lines(frameno: int, lines: list, l_0: float, l_1: float, theta_0_sequ
     pos_joint_1 = transform_base_to_joint_1 @ pos_base
     transform_base_to_joint_2 = get_forward_transform_base_to_joint_2(l_0, l_1, theta_0, theta_1, theta_2)
     pos_joint_2 = transform_base_to_joint_2 @ pos_base
+
     #print(f"frameno is {frameno}\tangles are {theta_0_sequence[frameno]}\t\t{theta_1_sequence[frameno]}\t\t{theta_2_sequence[frameno]}\t\tend effector is at {pos_joint_2.T[0][:-1]}")
 
     # Update the line objects
@@ -39,8 +39,12 @@ def update_lines(frameno: int, lines: list, l_0: float, l_1: float, theta_0_sequ
     lines[4].set_data_3d([1, -1], [1, 1], [1, 1])
     lines[5].set_data_3d([-1, -1], [1, 1], [1, -1])
 
+    # Draw a dot if we're at a goal position
+    if frameno in goal_position_indices:
+        ax.scatter(pos_joint_2[0][0], pos_joint_2[1][0], pos_joint_2[2][0])
 
-def animate(l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list) -> None:
+
+def animate(l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, goal_position_indices: list) -> None:
     """Given a sequence of values for the robot arm's angles, create a 3D animation of the robot arm cycling through
     those poses.
     """
@@ -56,5 +60,5 @@ def animate(l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: li
     ax.set(zlim3d=(-2, 2), xlabel="Z")
 
     # Create the Animation object
-    ani = animation.FuncAnimation(fig, update_lines, len(theta_0_sequence), fargs=(lines, l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence), interval=100)     # fargs is additional arguments (besides frameno) to pass to each call of update_lines
+    ani = animation.FuncAnimation(fig, update_lines, len(theta_0_sequence), fargs=(ax, lines, l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence, goal_position_indices), interval=100)     # fargs is additional arguments (besides frameno) to pass to each call of update_lines
     plt.show()

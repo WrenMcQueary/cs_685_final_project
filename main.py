@@ -34,6 +34,7 @@ if __name__ == "__main__":
 
     # Get series of angles
     theta_0_sequence, theta_1_sequence, theta_2_sequence = [theta_0], [theta_1], [theta_2]
+    goal_position_indices = []
     for goal_position in goal_positions:
         # Get best angles for this goal
         goal_theta_0, goal_theta_1, goal_theta_2 = ccd(goal_position, l_0, l_1, [theta_0_sequence[-1], theta_1_sequence[-1], theta_2_sequence[-1]])
@@ -44,6 +45,7 @@ if __name__ == "__main__":
         theta_0_sequence.append(goal_theta_0)
         theta_1_sequence.append(goal_theta_1)
         theta_2_sequence.append(goal_theta_2)
+        goal_position_indices.append(len(theta_0_sequence) - 1)
 
     # Animate
-    animate(l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence)
+    animate(l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence, goal_position_indices)
