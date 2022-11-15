@@ -13,7 +13,7 @@ from transforms import *
 def update_lines(frameno: int, ax, lines: list, l_0: float, l_1: float, l_2: float, l_3:float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, theta_3_sequence: list, theta_4_sequence: list, goal_position_indices: list, goal_colors: list) -> None:
     """Set the lines such that they match the current frame.
     :param frameno:         which frame of the animation to set the lines to.
-    :param lines:           the line objects to set.  The first four are the arm segments, and the remaining four are the canvas.
+    :param lines:           the line objects to set.  The first four are the arm segments, and the remaining four are the obstacle.
     :param goal_position_indices:  list of frame indices at which the end effector is at a goal.
     """
     # Calculate joint positions
