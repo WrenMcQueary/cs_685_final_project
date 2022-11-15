@@ -61,3 +61,17 @@ def get_forward_transform_base_to_joint_2(l_0: float, l_1: float, theta_0: float
     position of joint 2.
     """
     return get_forward_transform_base_to_joint_1(l_0, theta_0, theta_1) @ get_rotation_y_transform(-theta_2) @ get_translation_x_transform(l_1)
+
+
+def get_forward_transform_base_to_joint_3(l_0: float, l_1: float, l_2: float, theta_0: float, theta_1: float, theta_2: float, theta_3: float) -> np.ndarray:
+    """Return a forward transform A from the base to joint 3, such that for any base position b, A @ b gives the
+    position of joint 3.
+    """
+    return get_forward_transform_base_to_joint_2(l_0, l_1, theta_0, theta_1, theta_2) @ get_rotation_y_transform(-theta_3) @ get_translation_x_transform(l_2)
+
+
+def get_forward_transform_base_to_joint_4(l_0: float, l_1: float, l_2: float, l_3: float, theta_0: float, theta_1: float, theta_2: float, theta_3: float, theta_4: float) -> np.ndarray:
+    """Return a forward transform A from the base to joint 4, such that for any base position b, A @ b gives the
+    position of joint 4.
+    """
+    return get_forward_transform_base_to_joint_3(l_0, l_1, l_2, theta_0, theta_1, theta_2, theta_3) @ get_rotation_y_transform(-theta_4) @ get_translation_x_transform(l_3)

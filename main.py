@@ -28,24 +28,32 @@ if __name__ == "__main__":
     # Initialize angles
     l_0 = 1
     l_1 = 1
+    l_2 = 1
+    l_3 = 1
     theta_0 = 0
     theta_1 = 0
     theta_2 = 0
+    theta_3 = 0
+    theta_4 = 0
 
     # Get series of angles
-    theta_0_sequence, theta_1_sequence, theta_2_sequence = [theta_0], [theta_1], [theta_2]
+    theta_0_sequence, theta_1_sequence, theta_2_sequence, theta_3_sequence, theta_4_sequence = [theta_0], [theta_1], [theta_2], [theta_3], [theta_4]
     goal_position_indices = []
     for goal_position in goal_positions:
         # Get best angles for this goal
-        goal_theta_0, goal_theta_1, goal_theta_2 = ccd(goal_position, l_0, l_1, [theta_0_sequence[-1], theta_1_sequence[-1], theta_2_sequence[-1]])
-        thetas_between = get_angles_along_trajectory(n_between, theta_0_sequence[-1], theta_1_sequence[-1], theta_2_sequence[-1], goal_theta_0, goal_theta_1, goal_theta_2)
+        goal_theta_0, goal_theta_1, goal_theta_2, goal_theta_3, goal_theta_4 = ccd(goal_position, l_0, l_1, l_2, l_3, [theta_0_sequence[-1], theta_1_sequence[-1], theta_2_sequence[-1], theta_3_sequence[-1], theta_4_sequence[-1]])
+        thetas_between = get_angles_along_trajectory(n_between, theta_0_sequence[-1], theta_1_sequence[-1], theta_2_sequence[-1], theta_3_sequence[-1], theta_4_sequence[-1], goal_theta_0, goal_theta_1, goal_theta_2, goal_theta_3, goal_theta_4)
         theta_0_sequence += thetas_between[0]
         theta_1_sequence += thetas_between[1]
         theta_2_sequence += thetas_between[2]
+        theta_3_sequence += thetas_between[3]
+        theta_4_sequence += thetas_between[4]
         theta_0_sequence.append(goal_theta_0)
         theta_1_sequence.append(goal_theta_1)
         theta_2_sequence.append(goal_theta_2)
+        theta_3_sequence.append(goal_theta_3)
+        theta_4_sequence.append(goal_theta_4)
         goal_position_indices.append(len(theta_0_sequence) - 1)
 
     # Animate
-    animate(l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence, goal_position_indices, goal_colors)
+    animate(l_0, l_1, l_2, l_3, theta_0_sequence, theta_1_sequence, theta_2_sequence, theta_3_sequence, theta_4_sequence, goal_position_indices, goal_colors)
