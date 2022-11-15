@@ -1,5 +1,7 @@
 # final_project
-By running main.py with the CLI arguments shown below, you can cause a simulated robot arm to move its end effector to each point you specify in a .txt file in sequence, leaving a colored dot of your choice at each point.
+By running main.py with the CLI arguments shown below, you can cause a simulated robot arm to move its end effector to each point you specify in a .txt file in sequence, leaving a colored dot of your choice at each point.  Includes optional obstacle avoidance.
+
+Some sample sets of goal points are provided in the `choreographies/` folder.
 
 ## Usage
 Write a .txt file in the root project folder containing a series of points for the robot to paint.
