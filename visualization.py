@@ -63,8 +63,8 @@ def animate(l_0: float, l_1: float, l_2: float, l_3: float, theta_0_sequence: li
 
     # Set the axes properties
     ax.set(xlim3d=(-2, 2), xlabel="X")
-    ax.set(ylim3d=(-2, 2), xlabel="Y")
-    ax.set(zlim3d=(-2, 2), xlabel="Z")
+    ax.set(ylim3d=(-2, 2), ylabel="Y")
+    ax.set(zlim3d=(-2, 2), zlabel="Z")
 
     # Create the Animation object
     ani = animation.FuncAnimation(fig, update_lines, len(theta_0_sequence), fargs=(ax, lines, l_0, l_1, l_2, l_3, theta_0_sequence, theta_1_sequence, theta_2_sequence, theta_3_sequence, theta_4_sequence, goal_position_indices, goal_colors), interval=100)     # fargs is additional arguments (besides frameno) to pass to each call of update_lines
