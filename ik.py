@@ -55,7 +55,6 @@ def ccd(goal: np.array, l_0: float, l_1: float, l_2: float, l_3: float, angles: 
     goal_x, goal_y, goal_z = goal[0][0], goal[1][0], goal[2][0]
     pos_base = np.array([[0], [0], [0], [1]])
     for ii in range(iterations):
-        #print(f"Running iteration {ii}/{iterations}...")
         for aa in range(len(angles)):
             # Find the value for this angle that minimizes the distance between the end effector and the goal position
             best_possible_angle = None
