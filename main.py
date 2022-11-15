@@ -23,7 +23,7 @@ if __name__ == "__main__":
         n_between = n_between[0]
 
     # Get list of goal positions from file content
-    goal_positions = get_goal_list(filepath)
+    goal_positions, goal_colors = get_goal_list_and_goal_colors(filepath)
 
     # Initialize angles
     l_0 = 1
@@ -48,4 +48,4 @@ if __name__ == "__main__":
         goal_position_indices.append(len(theta_0_sequence) - 1)
 
     # Animate
-    animate(l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence, goal_position_indices)
+    animate(l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence, goal_position_indices, goal_colors)

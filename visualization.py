@@ -10,7 +10,7 @@ from math import pi, sin, cos, tan
 from transforms import *
 
 
-def update_lines(frameno: int, ax, lines: list, l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, goal_position_indices: list) -> None:
+def update_lines(frameno: int, ax, lines: list, l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, goal_position_indices: list, goal_colors: list) -> None:
     """Set the lines such that they match the current frame.
     :param frameno:         which frame of the animation to set the lines to.
     :param lines:           the line objects to set.  The first two are the arm segments, and the remaining four are the canvas.
@@ -39,12 +39,13 @@ def update_lines(frameno: int, ax, lines: list, l_0: float, l_1: float, theta_0_
     lines[4].set_data_3d([1, -1], [1, 1], [1, 1])
     lines[5].set_data_3d([-1, -1], [1, 1], [1, -1])
 
-    # Draw a dot if we're at a goal position
+    # If we're at a goal position, draw a dot of the appropriate color
     if frameno in goal_position_indices:
-        ax.scatter(pos_joint_2[0][0], pos_joint_2[1][0], pos_joint_2[2][0])
+        this_goal_color = goal_colors[goal_position_indices.index(frameno)]
+        ax.scatter(pos_joint_2[0][0], pos_joint_2[1][0], pos_joint_2[2][0], color=this_goal_color)
 
 
-def animate(l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, goal_position_indices: list) -> None:
+def animate(l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, goal_position_indices: list, goal_colors: list) -> None:
     """Given a sequence of values for the robot arm's angles, create a 3D animation of the robot arm cycling through
     those poses.
     """
@@ -60,5 +61,5 @@ def animate(l_0: float, l_1: float, theta_0_sequence: list, theta_1_sequence: li
     ax.set(zlim3d=(-2, 2), xlabel="Z")
 
     # Create the Animation object
-    ani = animation.FuncAnimation(fig, update_lines, len(theta_0_sequence), fargs=(ax, lines, l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence, goal_position_indices), interval=100)     # fargs is additional arguments (besides frameno) to pass to each call of update_lines
+    ani = animation.FuncAnimation(fig, update_lines, len(theta_0_sequence), fargs=(ax, lines, l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence, goal_position_indices, goal_colors), interval=100)     # fargs is additional arguments (besides frameno) to pass to each call of update_lines
     plt.show()
