@@ -25,6 +25,7 @@ if __name__ == "__main__":
     theta_1 = 0
     theta_2 = 0
 
+    """
     # Display the arm at each goal position
     for goal_position in goal_positions:
         # Get best angles for this goal
@@ -32,3 +33,16 @@ if __name__ == "__main__":
         # Show result
         print(f"SHOWING RESULT FOR GOAL\n{goal_position[:-1]}")
         draw_snapshot(l_0, l_1, theta_0, theta_1, theta_2)
+    """
+
+    # Get series of angles
+    theta_0_sequence, theta_1_sequence, theta_2_sequence = [theta_0], [theta_1], [theta_2]
+    for goal_position in goal_positions:
+        # Get best angles for this goal
+        this_theta_0, this_theta_1, this_theta_2 = ccd(goal_position, l_0, l_1, [theta_0_sequence[-1], theta_1_sequence[-1], theta_2_sequence[-1]])
+        theta_0_sequence.append(this_theta_0)
+        theta_1_sequence.append(this_theta_1)
+        theta_2_sequence.append(this_theta_2)
+
+    # Animate
+    animate(l_0, l_1, theta_0_sequence, theta_1_sequence, theta_2_sequence)
