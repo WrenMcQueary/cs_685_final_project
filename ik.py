@@ -47,7 +47,7 @@ def collides(l_0: float, l_1: float, l_2: float, l_3: float, angles: list) -> bo
     return False
 
 
-def ccd(goal: np.array, l_0: float, l_1: float, l_2: float, l_3: float, angles: list, iterations=5) -> [float, float, float, float, float]:
+def ccd(goal: np.array, l_0: float, l_1: float, l_2: float, l_3: float, angles: list, use_obstacle_avoidance, iterations=5) -> [float, float, float, float, float]:
     """Run Cyclic Coordinate Descent to approximate a new best pose.  Return the set of angles defining that pose.
     goal is a 3D column vector plus an affine coordinate of 1.
     :param angles:  the initial pose of the arm.  A list composed of [theta_0, theta_1, theta_2, theta_3, theta_4]
@@ -65,10 +65,13 @@ def ccd(goal: np.array, l_0: float, l_1: float, l_2: float, l_3: float, angles: 
                 angle_list_under_consideration[aa] = possible_angle
                 pos_end_effector = get_forward_transform_base_to_joint_4(l_0, l_1, l_2, l_3, angle_list_under_consideration[0], angle_list_under_consideration[1], angle_list_under_consideration[2], angle_list_under_consideration[3], angle_list_under_consideration[4]) @ pos_base
                 this_distance = ((pos_end_effector[0][0] - goal_x)**2 + (pos_end_effector[1][0] - goal_y)**2 + (pos_end_effector[2][0] - goal_z)**2)**0.5
-                if this_distance < best_possible_distance:
-                    if not collides(l_0, l_1, l_2, l_3, angles):
-                        best_possible_distance = this_distance
-                        best_possible_angle = possible_angle
+                if this_distance >= best_possible_distance:
+                    continue
+                if use_obstacle_avoidance:
+                    if collides(l_0, l_1, l_2, l_3, angles):
+                        continue
+                best_possible_distance = this_distance
+                best_possible_angle = possible_angle
             # Set the angle to this value
             angles[aa] = best_possible_angle
     return angles
