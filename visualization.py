@@ -35,8 +35,6 @@ def update_lines(frameno: int, ax, lines: list, l_0: float, l_1: float, l_2: flo
     transform_base_to_joint_4 = get_forward_transform_base_to_joint_4(l_0, l_1, l_2, l_3, theta_0, theta_1, theta_2, theta_3, theta_4)
     pos_joint_4 = transform_base_to_joint_4 @ pos_base
 
-    print(f"theta_4 is {theta_4}")  # TODO: Remove debugging line
-
     # Update the line objects
     lines[0].set_data_3d([pos_base[0][0], pos_joint_1[0][0]], [pos_base[1][0], pos_joint_1[1][0]], [pos_base[2][0], pos_joint_1[2][0]])
     lines[1].set_data_3d([pos_joint_1[0][0], pos_joint_2[0][0]], [pos_joint_1[1][0], pos_joint_2[1][0]], [pos_joint_1[2][0], pos_joint_2[2][0]])
