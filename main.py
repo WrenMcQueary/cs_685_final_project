@@ -35,11 +35,11 @@ if __name__ == "__main__":
     l_1 = 1
     l_2 = 1
     l_3 = 1
-    theta_0 = pi/2
+    theta_0 = 0
     theta_1 = 0
     theta_2 = 0
-    theta_3 = 2*pi/3
-    theta_4 = pi/3
+    theta_3 = 0
+    theta_4 = 0
 
     # Get series of angles
     theta_0_sequence, theta_1_sequence, theta_2_sequence, theta_3_sequence, theta_4_sequence = [theta_0], [theta_1], [theta_2], [theta_3], [theta_4]
