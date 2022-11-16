@@ -28,6 +28,7 @@ If no color is provided, an arbitrary color will be chosen.
 - The `-f/--file` flag is required, and must be followed by the relative filepath of the file containing the points you wish to draw.
 - The `-i/--inbetween` flag is optional.  If used, it must be followed by the number of inbetweener frames you'd like between each goal pose.
 - The `-o/--obstacle_avoidance` flag is optional.  If used, obstacle avoidance will be enabled; the arm will avoid a 2x2 rectangle aligned with the y=1 plane and centered on (0, 1, 0).
+- The `-p/--performance_metrics` flag is optional.  If used, the mean and standard deviation for the distance between each painted circle and its goal position will be displayed, and the exact location of each goal position will be shown as a hollow ring in the 3D animation.
 
 ## Requirements
 The following packages must be installed in order to use this project:
