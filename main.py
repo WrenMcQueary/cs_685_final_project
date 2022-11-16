@@ -65,4 +65,4 @@ if __name__ == "__main__":
         show_performance_metrics(l_0, l_1, l_2, l_3, theta_0_sequence, theta_1_sequence, theta_2_sequence, theta_3_sequence, theta_4_sequence, goal_position_indices, goal_positions)
 
     # Animate
-    animate(l_0, l_1, l_2, l_3, theta_0_sequence, theta_1_sequence, theta_2_sequence, theta_3_sequence, theta_4_sequence, goal_position_indices, goal_colors)
+    animate(l_0, l_1, l_2, l_3, theta_0_sequence, theta_1_sequence, theta_2_sequence, theta_3_sequence, theta_4_sequence, goal_position_indices, goal_colors, goal_positions, gather_performance_metrics)

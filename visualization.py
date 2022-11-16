@@ -51,7 +51,7 @@ def update_lines(frameno: int, ax, lines: list, l_0: float, l_1: float, l_2: flo
         ax.scatter(pos_joint_4[0][0], pos_joint_4[1][0], pos_joint_4[2][0], color=this_goal_color)
 
 
-def animate(l_0: float, l_1: float, l_2: float, l_3: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, theta_3_sequence: list, theta_4_sequence: list, goal_position_indices: list, goal_colors: list) -> None:
+def animate(l_0: float, l_1: float, l_2: float, l_3: float, theta_0_sequence: list, theta_1_sequence: list, theta_2_sequence: list, theta_3_sequence: list, theta_4_sequence: list, goal_position_indices: list, goal_colors: list, goal_true_positions: list, gather_performance_metrics: bool) -> None:
     """Given a sequence of values for the robot arm's angles, create a 3D animation of the robot arm cycling through
     those poses.
     """
@@ -65,6 +65,11 @@ def animate(l_0: float, l_1: float, l_2: float, l_3: float, theta_0_sequence: li
     ax.set(xlim3d=(-2, 2), xlabel="X")
     ax.set(ylim3d=(-2, 2), ylabel="Y")
     ax.set(zlim3d=(-2, 2), zlabel="Z")
+
+    # If gathering performance metrics, draw a circle at each goal position.
+    if gather_performance_metrics:
+        for gtp in goal_true_positions:
+            ax.scatter(gtp[0][0], gtp[1][0], gtp[2][0], facecolors="none", edgecolors="k")
 
     # Create the Animation object
     ani = animation.FuncAnimation(fig, update_lines, len(theta_0_sequence), fargs=(ax, lines, l_0, l_1, l_2, l_3, theta_0_sequence, theta_1_sequence, theta_2_sequence, theta_3_sequence, theta_4_sequence, goal_position_indices, goal_colors), interval=100)     # fargs is additional arguments (besides frameno) to pass to each call of update_lines
