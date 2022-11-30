@@ -14649,11 +14649,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Technical-details-of-my-method">Technical details of my method<a class="anchor-link" href="#Technical-details-of-my-method">&#182;</a></h2><p>With the exception of the packages <code>matplotlib</code> and <code>numpy</code>, all of my source code is self-written.</p>
-<p>I built a Cyclic Coordinate Descent (CCD) system for a four-segment arm.  All arm segments are the same length.  The arm's 4 degrees of freedom are defined as follows:</p>
+<p>I built a Cyclic Coordinate Descent (CCD) system for a four-segment arm.  All arm segments are the same length.  The arm's 5 degrees of freedom are defined as follows:</p>
 <p><img src="tutorial_images/angle_definitions.jpg" alt="angle_definitions" /></p>
 <p>A single obstacle exists near the robot, in the form of a 2x2 rectangle aligned with the $y=1$ plane and centered on $(0, 1, 0)$.  Both forward and inverse kinematics are powered by matrix multiplications of affine transformations, as done in class.</p>
-<p>The system takes in a series of <em>goal points</em> to draw, as well as an optional color for each point.  The robot begins with all its angles set to 0.  For each goal point, it uses CCD (described in <em>Existing work</em>) to find angles that bring it &quot;closest&quot; to the goal.  CCD is not an optimal approach, but as is discussed in the section <em>Performance metrics, results, discussion</em>, it does decently well.</p>
-<p>To avoid collision, angles which would result in a collision with an obstacle are not considered during the CCD process.  Collision is detected by checking each consecutive pair of joints, and examining if the line segment connecting those joints intersects the obstacle.</p>
+<p>The system takes in a series of <em>goal points</em> to draw, as well as an optional color for each point.  The robot begins with all its angles set to 0.  For each goal point, it uses CCD (described in <em>Existing Work</em>) to find angles that bring it &quot;closest&quot; to the goal.  CCD is not an optimal approach, but as is discussed in the section <em>Performance metrics, results, discussion</em>, it does decently well.</p>
+<p>To avoid collision, angles which would result in a collision with an obstacle are not considered during the CCD process.  Collision is detected by checking each consecutive pair of joints, and examining if the line segment connecting those joints intersects the obstacle.  This guarantees collision avoidance.</p>
 <p>At this point, my visualization takes over.  Angles for a series of inbetween poses are found for each pair of consecutive steps, by taking graduated linear combinations of the new and old values per angle.  Then a <code>matplotlib</code> animation shows the robot moving from position to position.  In this animation, the inbetween poses serve to approximate how the arm might move.  However, they are for aesthetic purposes only, and do not guarantee collision avoidance.  That guarantee is only given in the goal frames, to which the inbetween frames are less rigorous connectors.</p>
 
 </div>
@@ -14666,7 +14666,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Performance-metrics,-results,-discussion">Performance metrics, results, discussion<a class="anchor-link" href="#Performance-metrics,-results,-discussion">&#182;</a></h2><p>To determine how accurately the robot places its end effector, I generated four tests, in the form of three .txt files, each containing a series of points for it to draw.  These files are as follows:</p>
+<h2 id="Performance-metrics,-results,-discussion">Performance metrics, results, discussion<a class="anchor-link" href="#Performance-metrics,-results,-discussion">&#182;</a></h2><p>To determine how accurately the robot places its end effector, I designed four tests, in the form of three .txt files, each containing a series of points for it to draw.  These files are as follows:</p>
 <ul>
 <li><code>choreographies/breadth_test.txt</code>, in which points surround the base and are at various heights.</li>
 <li><code>choreographies/smile.txt</code>, in which all points are coplanar and make up a smiling face in front of the obstacle.</li>
@@ -14675,7 +14675,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <p>Below, I show how the arm performed on each test.  Each test is accompanied with the following pieces of information:</p>
 <ul>
 <li>A figure, showing the goal points (black rings), and the locations of the actual points painted by the robot (colorful circles).</li>
-<li>The mean distance between each goal point and the corresponding point painted by the robot, measured in arm segment lengths.  This should be as small as possible.</li>
+<li>The mean distance between each goal point and the corresponding point painted by the robot, measured in arm segment lengths.  Smaller mean distances indicate more accurate end effector placement.</li>
 <li>The standard deviation of that distance, measured in arm segment lengths.</li>
 </ul>
 <p>Mean distance $D_{mean}$ is my key performance metric, and is calculated as follows:</p>
@@ -14694,7 +14694,7 @@ $$D_{mean} = \frac{1}{N} \Sigma_i^N ||\overrightarrow{r}_{goal,i} - \overrightar
 <p>The arm performed badly on this test.  It painted all its points within the base's line of sight.  This happened because the arm is initialized at $\theta_1 = 0$, so any increase or decrease of the angle beyond a few degrees would bring the end effector <em>farther</em> from any goal point; therefore these angle changes were not considered.  Yet changing $\theta_1$ is required because of the arm's crane-like design; it cannot reach around the barrier from the left or right, so it must reach around from above or below instead.</p>
 <h3 id="Obstacle-avoidance-test-(with-obstacle-avoidance),-with-assistive-initialization">Obstacle avoidance test (with obstacle avoidance), with assistive initialization<a class="anchor-link" href="#Obstacle-avoidance-test-(with-obstacle-avoidance),-with-assistive-initialization">&#182;</a></h3><p><img src="tutorial_images/obstacle_avoidance_test_with_obstacle_avoidance_with_assistive_initialization.png" alt="obstacle_avoidance_test_with_obstacle_avoidance_with_assistive_initialization" /></p>
 <p><code>mean = 0.0299, std = 0.0320</code></p>
-<p>The failure of the previous test inspired me to try initializing the angles to more agreeable values, to avoid the same CCD stall.  In this new test, I initialized the angles to $[\pi/2, 0, 0, 2\pi/3, \pi/3]$, in that order.  These angles got the CCD algorithm &quot;unstuck&quot;, and allowed it to reach an accuracy better than any other test with obstacle avoidance.</p>
+<p>The failure of the previous test inspired me to try initializing the angles to more agreeable values, to avoid the same CCD stall.  In this new test, I initialized the angles to $[\frac{\pi}{2}, 0, 0, \frac{2\pi}{3}, \frac{\pi}{3}]$, in that order.  These angles got the CCD algorithm &quot;unstuck&quot;, and allowed it to reach an accuracy better than any other test with obstacle avoidance.</p>
 
 </div>
 </div>
